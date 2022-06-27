@@ -23,17 +23,13 @@ function Signup() {
     console.log(JSON.stringify(formData));
 
     axios
-      .post(
-        "https://fe94-2603-8001-7f00-75f5-d149-9d99-20e7-b522.ngrok.io/signup",
-        JSON.stringify(formData),
-        {
-          method: "POST",
-          headers: {
-            // Overwrite Axios's automatically set Content-Type
-            "Content-Type": "application/json"
-          }
+      .post("/signup", JSON.stringify(formData), {
+        method: "POST",
+        headers: {
+          // Overwrite Axios's automatically set Content-Type
+          "Content-Type": "application/json"
         }
-      )
+      })
       .then((res) => {
         console.log(res);
         console.log(res.data["result"]);

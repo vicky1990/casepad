@@ -18,17 +18,13 @@ function NewPatient() {
     console.log(JSON.stringify(formData));
 
     axios
-      .post(
-        "https://8271-2603-8001-7f00-75f5-87c4-4bc9-dcfb-b335.ngrok.io/newpatient",
-        JSON.stringify(formData),
-        {
-          method: "POST",
-          headers: {
-            // Overwrite Axios's automatically set Content-Type
-            "Content-Type": "application/json"
-          }
+      .post("/newpatient", JSON.stringify(formData), {
+        method: "POST",
+        headers: {
+          // Overwrite Axios's automatically set Content-Type
+          "Content-Type": "application/json"
         }
-      )
+      })
       .then((res) => {
         console.log(res);
         console.log(res.data["result"]);

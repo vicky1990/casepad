@@ -46,7 +46,7 @@ function useProvideAuth() {
           setUser(full_name);
 
           return new Promise((res) => {
-            setAuthed(false);
+            setAuthed(true);
             res();
           });
         }
@@ -61,6 +61,9 @@ function useProvideAuth() {
   };
 
   const logout = () => {
+    axios.post("/logout", {
+      method: "GET"
+    });
     return new Promise((res) => {
       setUser("null");
       setAuthed(false);

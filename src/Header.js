@@ -1,10 +1,20 @@
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
-import { Outlet, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useAuth from "./components/useAuth";
 
 function Header(props) {
-  const { user } = useAuth();
+  const navigate = useNavigate();
+  const { logout, authed, user } = useAuth();
+
+  function handleLogOut(event) {
+    logout().then(() => {
+      if (authed === false) {
+        navigate("/login");
+      }
+    });
+  }
 
   return (
     <Navbar bg="light" expand="lg">
@@ -27,7 +37,12 @@ function Header(props) {
         </Navbar.Collapse>
         <Nav>
           <NavDropdown title={user} id="basic-nav-dropdown">
-            <NavDropdown.Item as={NavLink} to="/Login">
+            <NavDropdown.Item
+              onClick={(e) => {
+                e.preventDefault();
+                handleLogOut(e);
+              }}
+            >
               LogOut
             </NavDropdown.Item>
           </NavDropdown>

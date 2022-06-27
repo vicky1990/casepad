@@ -28,35 +28,6 @@ function Login() {
         navigate("/home");
       }
     });
-
-    ///@todo fetch response from back end, stay in login page if error or move to home
-    /*fetch(
-      "https://8867-2603-8001-7f00-75f5-acbf-c142-9fb5-d3da.ngrok.io/login",
-      {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email: email,
-          password: hashedPassword
-        })
-      }
-    )
-      .then((res) => {
-        console.log(res);
-        console.log(res.json());
-        //window.localStorage.setItem("token", res.data.token);
-        //this.props.navigate("/home");
-        // return <Redirect to="/home" />;
-      })
-      .catch((err) => {
-        console.log(err);
-      });*/
-
-    //this.props.navigate("/home");
   }
 
   return (
