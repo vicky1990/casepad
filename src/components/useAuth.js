@@ -61,13 +61,23 @@ function useProvideAuth() {
   };
 
   const logout = () => {
-    axios.post("/logout", {
-      method: "GET"
-    });
-    return new Promise((res) => {
-      setUser("null");
-      setAuthed(false);
-      res();
+    axios
+      .get("/logout", {
+        method: "GET"
+      })
+      .then((res) => {
+        return new Promise((res) => {
+          setUser("null");
+          setAuthed(false);
+          res();
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    return new Promise((err) => {
+      err();
     });
   };
 
