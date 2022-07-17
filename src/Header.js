@@ -9,11 +9,13 @@ function Header(props) {
   const { logout, authed, user } = useAuth();
 
   function handleLogOut(event) {
-    logout().then(() => {
-      if (authed === false) {
+    logout()
+      .then((res) => {
         navigate("/login");
-      }
-    });
+      })
+      .catch((err) => {
+        console.log("Logout error");
+      });
   }
 
   return (

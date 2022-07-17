@@ -13,27 +13,29 @@ import axios from "axios";
 import Asynautocomplete from "./components/Asynautocomplete";
 
 function AddVisit() {
-  const [formData, setFormData] = useState({});
-  const [symptoms, setSymptomsData] = useState({});
-  const [images, setImageData] = useState({});
+  const [formData, setFormData] = useState({
+    symptoms: [],
+    diagnosis: "",
+    images: "",
+    treatement: "",
+    comments: ""
+  });
+  //const [symptoms, setSymptomsData] = useState([]);
+  //const [images, setImageData] = useState({});
 
   function handleSubmitForm(event) {
-    setFormData({ ...formData, symtoms: symptoms });
-    setFormData({ ...formData, images: images });
+    //setFormData({ ...formData, symtom: symptoms });
+    //setFormData({ ...formData, images: images });
 
-    console.log(JSON.stringify(formData));
+    console.log(formData);
     axios
-      .post(
-        "https://8271-2603-8001-7f00-75f5-87c4-4bc9-dcfb-b335.ngrok.io/addvisit",
-        JSON.stringify(formData),
-        {
-          method: "POST",
-          headers: {
-            // Overwrite Axios's automatically set Content-Type
-            "Content-Type": "application/json"
-          }
+      .post("/addvisit", JSON.stringify(formData), {
+        method: "POST",
+        headers: {
+          // Overwrite Axios's automatically set Content-Type
+          "Content-Type": "application/json"
         }
-      )
+      })
       .then((res) => {
         console.log(res);
         console.log(res.data["result"]);
@@ -43,8 +45,20 @@ function AddVisit() {
       });
   }
 
-  const eventhandler = (data) => setSymptomsData(data);
-  const addImage = (data) => setImageData(data);
+  const eventhandler = (data) => {
+    //console.log(data.length);
+    data.forEach((element) => {
+      //setSymptomsData(element.login);
+      setFormData({
+        ...formData,
+        symptoms: [...formData.symptoms, element.login]
+      });
+    });
+  };
+  const addImage = (data) => {
+    //setImageData(data);
+    setFormData({ ...formData, images: data });
+  };
 
   return (
     <div>
@@ -54,8 +68,9 @@ function AddVisit() {
           <h1 className="header">Add a Visit</h1>
           <Form>
             <Form.Group className="mb-3" controlId="formGridPatientId">
-              <Form.Label>Patient Id</Form.Label>
+              <Form.Label>Patient Name</Form.Label>
               <Form.Control
+                readOnly
                 placeholder=""
                 onChange={(e) => {
                   setFormData({ ...formData, patient_id: e.target.value });
@@ -65,14 +80,17 @@ function AddVisit() {
 
             <Form.Group className="mb-3" controlId="formGridsymptom">
               <Form.Label>Symptoms</Form.Label>
-              <Form.Control placeholder="" />
+              <Asynautocomplete onChange={eventhandler} />
             </Form.Group>
-
-            <Asynautocomplete onChange={eventhandler} />
 
             <Form.Group className="mb-3" controlId="formGridDiagnosis">
               <Form.Label>Diagnosis</Form.Label>
-              <Form.Control placeholder="Diagnosis" />
+              <Form.Control
+                placeholder="Diagnosis"
+                onChange={(e) => {
+                  setFormData({ ...formData, diagnosis: e.target.value });
+                }}
+              />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formGridTreatment">

@@ -5,8 +5,6 @@ import Button from "react-bootstrap/Button";
 
 import Header from "./Header";
 
-const API_HOST = "https://mocki.io/v1/896f0bf3-05eb-4fff-bace-2595305762c8";
-
 // try home() with hooks instead of class and compare with others.
 function Home() {
   // data state variable defaulted to an empty array
@@ -39,7 +37,11 @@ function Home() {
             </thead>
             <tbody>
               <tr>
+                <td></td>
+                <td>1</td>
+                <td>1</td>
                 <td>
+                  {" "}
                   <Button
                     variant="primary"
                     type="submit"
@@ -48,12 +50,9 @@ function Home() {
                       this.handleLoginForm(e);
                     }}
                   >
-                    Login
+                    Add Visit
                   </Button>
                 </td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
 
                 <td />
               </tr>

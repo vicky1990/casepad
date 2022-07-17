@@ -8,7 +8,7 @@ function useProvideAuth() {
   const [user, setUser] = useState(null);
   const [authed, setAuthed] = React.useState(false);
 
-  const login = (username, password) => {
+  const login = async (username, password) => {
     const hashedPassword = bcrypt.hashSync(
       password,
       "$2a$10$CwTycUXWue0Thq9StjUM0u"
@@ -21,7 +21,7 @@ function useProvideAuth() {
       })
     );
 
-    axios
+    return axios
       .post(
         "/login",
         JSON.stringify({
@@ -41,44 +41,32 @@ function useProvideAuth() {
         console.log(res.data["result"]);
 
         if (res.data.result === "success") {
+          setAuthed(true);
           let name = res.data["first_name"];
           let full_name = name.concat(" ", res.data["last_name"]);
           setUser(full_name);
-
-          return new Promise((res) => {
-            setAuthed(true);
-            res();
-          });
         }
       })
       .catch((err) => {
         console.log(err);
+        //setAuthed(true);
       });
-
-    return new Promise((err) => {
-      err();
-    });
   };
 
   const logout = () => {
-    axios
+    return axios
       .get("/logout", {
         method: "GET"
       })
       .then((res) => {
-        return new Promise((res) => {
-          setUser("null");
-          setAuthed(false);
-          res();
-        });
+        setUser("null");
+        setAuthed(false);
+        console.log("logging out");
       })
       .catch((err) => {
         console.log(err);
+        console.log("logout error");
       });
-
-    return new Promise((err) => {
-      err();
-    });
   };
 
   useEffect(() => {}, []);

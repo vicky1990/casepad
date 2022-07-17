@@ -23,11 +23,26 @@ function Login() {
   function handleLoginForm(event) {
     const { email, password } = formData;
 
-    login(email, password).then(() => {
-      if (authed === true) {
+    /*var res = await login(email, password);
+
+    if (res === null) {
+      console.log("Bad login");
+    } else {
+      if (res.data.result === "success") {
         navigate("/home");
       }
-    });
+    }*/
+
+    login(email, password)
+      .then((res) => {
+        if (res.data.result === "success") {
+          navigate("/home");
+        }
+      })
+      .catch((err) => {
+        console.log("Bad login");
+        //navigate("/home");
+      });
   }
 
   return (
