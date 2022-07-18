@@ -21,7 +21,7 @@ function useProvideAuth() {
       })
     );
 
-    return axios
+    return await axios
       .post(
         "/login",
         JSON.stringify({

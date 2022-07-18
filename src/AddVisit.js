@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import Figure from "react-bootstrap/Figure";
+import { useLocation } from "react-router-dom";
 
 import ModalCamera from "./components/ModalCamera";
 
@@ -13,12 +14,15 @@ import axios from "axios";
 import Asynautocomplete from "./components/Asynautocomplete";
 
 function AddVisit() {
+  const location = useLocation();
+
   const [formData, setFormData] = useState({
     symptoms: [],
     diagnosis: "",
     images: "",
     treatement: "",
-    comments: ""
+    comments: "",
+    patient_id: ""
   });
   //const [symptoms, setSymptomsData] = useState([]);
   //const [images, setImageData] = useState({});
@@ -26,6 +30,8 @@ function AddVisit() {
   function handleSubmitForm(event) {
     //setFormData({ ...formData, symtom: symptoms });
     //setFormData({ ...formData, images: images });
+
+    setFormData({ ...formData, patient_id: location.state.id });
 
     console.log(formData);
     axios
@@ -71,7 +77,7 @@ function AddVisit() {
               <Form.Label>Patient Name</Form.Label>
               <Form.Control
                 readOnly
-                placeholder=""
+                placeholder={location.state.patient_name}
                 onChange={(e) => {
                   setFormData({ ...formData, patient_id: e.target.value });
                 }}

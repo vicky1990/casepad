@@ -32,9 +32,10 @@ function Header(props) {
             <Nav.Link as={NavLink} to="/NewPatient">
               New Patient
             </Nav.Link>
+            {/*
             <Nav.Link as={NavLink} to="/AddVisit">
               Add Visit
-            </Nav.Link>
+            </Nav.Link>*/}
           </Nav>
         </Navbar.Collapse>
         <Nav>

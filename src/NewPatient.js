@@ -8,8 +8,10 @@ import Col from "react-bootstrap/Col";
 import axios from "axios";
 
 import Header from "./Header";
+import { useNavigate } from "react-router-dom";
 
 function NewPatient() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({});
   const [locData, setLocData] = useState({});
 
@@ -28,9 +30,13 @@ function NewPatient() {
       .then((res) => {
         console.log(res);
         console.log(res.data["result"]);
+        navigate("/addvisit", {
+          state: { patient_name: res.data["name"], patient_id: res.data["id"] }
+        });
       })
       .catch((err) => {
         console.log(err);
+        navigate("/addvisit", { state: { patient_name: "sabaoon", id: "0" } });
       });
   }
 
