@@ -35,6 +35,8 @@ function Login() {
 
     login(email, password)
       .then((res) => {
+        console.log("In success");
+        console.log(res);
         if (res.data.result === "success") {
           navigate("/home");
         }
