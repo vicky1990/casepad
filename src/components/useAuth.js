@@ -46,10 +46,12 @@ function useProvideAuth() {
           let full_name = name.concat(" ", res.data["last_name"]);
           setUser(full_name);
         }
+        return res;
       })
       .catch((err) => {
         console.log(err);
         //setAuthed(true);
+        return err;
       });
   };
 
