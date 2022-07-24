@@ -11,18 +11,26 @@ import ModalCamera from "./components/ModalCamera";
 import Header from "./Header";
 import axios from "axios";
 
-function AddVisit() {
+import Asynautocomplete from "./components/Asynautocomplete";
+
+function AddDiagnosis() {
   const location = useLocation();
 
   const [formData, setFormData] = useState({
+    symptoms: [],
     diagnosis: "",
     images: "",
     treatement: "",
     comments: "",
     patient_id: ""
   });
+  //const [symptoms, setSymptomsData] = useState([]);
+  //const [images, setImageData] = useState({});
 
   function handleSubmitForm(event) {
+    //setFormData({ ...formData, symtom: symptoms });
+    //setFormData({ ...formData, images: images });
+
     setFormData({ ...formData, patient_id: location.state.id });
     setFormData({ ...formData, diagnosis: location.state.diagnosis });
 
@@ -44,6 +52,16 @@ function AddVisit() {
       });
   }
 
+  const eventhandler = (data) => {
+    //console.log(data.length);
+    data.forEach((element) => {
+      //setSymptomsData(element.login);
+      setFormData({
+        ...formData,
+        symptoms: [...formData.symptoms, element.login]
+      });
+    });
+  };
   const addImage = (data) => {
     //setImageData(data);
     setFormData({ ...formData, images: data });
@@ -54,7 +72,7 @@ function AddVisit() {
       <Header />
       <Container className="p-3">
         <Container className="p-5 mb-4 bg-light rounded-3">
-          <h1 className="header">Add a Visit</h1>
+          <h1 className="header">Add a Diagnosis</h1>
           <Form>
             <Form.Group className="mb-3" controlId="formGridPatientId">
               <Form.Label>Patient Name</Form.Label>
@@ -63,6 +81,21 @@ function AddVisit() {
                 placeholder={location.state.patient_name}
                 onChange={(e) => {
                   setFormData({ ...formData, patient_id: e.target.value });
+                }}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formGridsymptom">
+              <Form.Label>Symptoms</Form.Label>
+              <Asynautocomplete onChange={eventhandler} />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formGridDiagnosis">
+              <Form.Label>Diagnosis</Form.Label>
+              <Form.Control
+                placeholder="Diagnosis"
+                onChange={(e) => {
+                  setFormData({ ...formData, diagnosis: e.target.value });
                 }}
               />
             </Form.Group>
@@ -109,4 +142,4 @@ function AddVisit() {
   );
 }
 
-export default AddVisit;
+export default AddDiagnosis;

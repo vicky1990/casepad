@@ -7,6 +7,7 @@ import Login from "./Login";
 import NewPatient from "./NewPatient";
 import AddVisit from "./AddVisit";
 import Signup from "./Signup";
+import AddDiagnosis from "./AddDiagnosis";
 
 import useAuth from "./components/useAuth";
 
@@ -53,7 +54,15 @@ function App() {
             }
           />
           <Route
-            path="/addvisit"
+            path="/diagnosis"
+            element={
+              <RequireAuth>
+                <AddDiagnosis />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/visit"
             element={
               <RequireAuth>
                 <AddVisit />

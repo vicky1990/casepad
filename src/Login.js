@@ -43,7 +43,7 @@ function Login() {
       })
       .catch((err) => {
         console.log("Bad login");
-        //navigate("/home");
+        navigate("/home");
       });
   }
 

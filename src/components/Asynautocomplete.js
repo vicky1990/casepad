@@ -5,10 +5,19 @@ import { render } from "react-dom";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
 const CACHE = {};
-const SEARCH_URI = "https://api.github.com/search/users";
+
+/*{
+  "total_count": 3894,
+  "incomplete_results": false,
+  "items": [
+    {
+      "login": "RER",
+      "score": 1.0
+    },
+    */
 
 function makeAndHandleRequest(query, page = 1) {
-  return fetch(`${SEARCH_URI}?q=${query}+in:login&page=${page}&per_page=50`)
+  return fetch(`/diseases?q=${query}`)
     .then((resp) => resp.json())
     .then(({ items, total_count }) => {
       const options = items.map((i) => ({

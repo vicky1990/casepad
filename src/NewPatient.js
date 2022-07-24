@@ -31,7 +31,11 @@ function NewPatient() {
         console.log(res);
         console.log(res.data["result"]);
         navigate("/addvisit", {
-          state: { patient_name: res.data["name"], patient_id: res.data["id"] }
+          state: {
+            patient_name: res.data["name"],
+            patient_id: res.data["id"],
+            diagnosis: "new"
+          }
         });
       })
       .catch((err) => {
