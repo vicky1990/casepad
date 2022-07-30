@@ -39,7 +39,7 @@ function Header(props) {
           </Nav>
         </Navbar.Collapse>
         <Nav>
-          <NavDropdown title={user} id="basic-nav-dropdown">
+          <NavDropdown title={user.full_name} id="basic-nav-dropdown">
             <NavDropdown.Item
               onClick={(e) => {
                 e.preventDefault();

@@ -17,12 +17,14 @@ function AddDiagnosis() {
   const location = useLocation();
 
   const [formData, setFormData] = useState({
-    symptoms: [],
+    symptoms_list: [],
     diagnosis: "",
+    diagnosis_list: [],
     images: "",
     treatement: "",
     comments: "",
-    patient_id: ""
+    patient_id: "",
+    doctor_id: ""
   });
   //const [symptoms, setSymptomsData] = useState([]);
   //const [images, setImageData] = useState({});
@@ -58,7 +60,7 @@ function AddDiagnosis() {
       //setSymptomsData(element.login);
       setFormData({
         ...formData,
-        symptoms: [...formData.symptoms, element.login]
+        symptoms: [...formData.symptoms, element.name]
       });
     });
   };

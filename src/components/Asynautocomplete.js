@@ -17,11 +17,11 @@ const CACHE = {};
     */
 
 function makeAndHandleRequest(query, page = 1) {
-  return fetch(`/diseases?q=${query}`)
+  return fetch(`/get_diseases?q=${query}`)
     .then((resp) => resp.json())
     .then(({ items, total_count }) => {
       const options = items.map((i) => ({
-        login: i.login
+        name: i.name
       }));
       return { options, total_count };
     });
@@ -94,7 +94,7 @@ function Asynautocomplete(props) {
     <AsyncTypeahead
       id="async-pagination-example"
       isLoading={isLoading}
-      labelKey="login"
+      labelKey="name"
       maxResults={10}
       minLength={3}
       multiple
@@ -106,7 +106,7 @@ function Asynautocomplete(props) {
       options={options}
       paginate
       placeholder=""
-      renderMenuItemChildren={(option) => <div>{option.login}</div>}
+      renderMenuItemChildren={(option) => <div>{option.name}</div>}
       selected={multiSelections}
       useCache={false}
     />

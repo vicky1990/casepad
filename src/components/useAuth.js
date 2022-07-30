@@ -5,7 +5,10 @@ import axios from "axios";
 const authContext = React.createContext();
 
 function useProvideAuth() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    full_name: "",
+    id: -1
+  });
   const [authed, setAuthed] = React.useState(false);
 
   const login = async (username, password) => {
@@ -43,8 +46,8 @@ function useProvideAuth() {
         if (res.data.result === "success") {
           setAuthed(true);
           let name = res.data["first_name"];
-          let full_name = name.concat(" ", res.data["last_name"]);
-          setUser(full_name);
+          name = name.concat(" ", res.data["last_name"]);
+          setUser({ full_name: name, id: res.data["id"] });
         }
         return res;
       })
