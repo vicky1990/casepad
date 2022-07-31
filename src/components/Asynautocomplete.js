@@ -3,6 +3,7 @@ import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import { render } from "react-dom";
 
 import "react-bootstrap-typeahead/css/Typeahead.css";
+import axios from "axios";
 
 const CACHE = {};
 
@@ -12,16 +13,18 @@ const CACHE = {};
   "items": [
     {
       "login": "RER",
-      "score": 1.0
+      "score": 1.0s
     },
     */
 
 function makeAndHandleRequest(query, page = 1) {
+  console.log(query);
   return fetch(`/get_diseases?q=${query}`)
     .then((resp) => resp.json())
     .then(({ items, total_count }) => {
       const options = items.map((i) => ({
-        name: i.name
+        name: i.name,
+        id: i.id
       }));
       return { options, total_count };
     });

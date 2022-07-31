@@ -55,12 +55,29 @@ function AddDiagnosis() {
   }
 
   const eventhandler = (data) => {
-    //console.log(data.length);
+    console.log(data);
     data.forEach((element) => {
-      //setSymptomsData(element.login);
+      let n = element.id;
+      if ("customOption" in element) {
+        n = element.name;
+      }
       setFormData({
         ...formData,
-        symptoms: [...formData.symptoms, element.name]
+        symptoms_list: [...formData.symptoms_list, n]
+      });
+    });
+  };
+
+  const diagnosis_eventhandler = (data) => {
+    console.log(data);
+    data.forEach((element) => {
+      let n = element.id;
+      if ("customOption" in element) {
+        n = element.name;
+      }
+      setFormData({
+        ...formData,
+        diagnosis_list: [...formData.diagnosis_list, n]
       });
     });
   };
@@ -92,14 +109,9 @@ function AddDiagnosis() {
               <Asynautocomplete onChange={eventhandler} />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formGridDiagnosis">
+            <Form.Group className="mb-3" controlId="formGridsymptom">
               <Form.Label>Diagnosis</Form.Label>
-              <Form.Control
-                placeholder="Diagnosis"
-                onChange={(e) => {
-                  setFormData({ ...formData, diagnosis: e.target.value });
-                }}
-              />
+              <Asynautocomplete onChange={diagnosis_eventhandler} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formGridTreatment">
