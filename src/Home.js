@@ -12,8 +12,9 @@ function Home() {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
+  // https://mocki.io/v1/50bbcc4e-bd7f-4309-888b-d71056adc58e
   const fetchRecords = () => {
-    fetch("https://mocki.io/v1/b48843ab-182f-495f-a3e4-22df23f24422")
+    fetch("/get_patients")
       .then((res) => res.json())
       .then((json) => setData(json.p_items));
   };
@@ -43,14 +44,13 @@ function Home() {
     console.log(treat_count);
     let tag = "";
     for (let i = 0; i < treat_count; i++) {
-      //tag += "<td></td>";
+      tag += "<td></td>";
       console.log(i);
     }
-    //console.log(tag);
+    console.log(tag);
     return (
       <tr>
         <td>{item.diagnosis}</td>
-        {tag}
       </tr>
     );
   }
@@ -65,21 +65,24 @@ function Home() {
   function renderitem(item, index) {
     return (
       <tr key={index}>
-        <td>{item.patient_name}</td>
         <td>
-          {item.d_items.map(renderdiagnosis)}
-          <Button
-            variant="primary"
-            size="sm"
-            type="submit"
-            onClick={(e) => {
-              e.preventDefault();
-              handleDiagnosisForm(e, item.patien_id, item.patient_name);
-            }}
-          >
-            +
-          </Button>
+          {item.patient_name}{" "}
+          <tr>
+            <Button
+              variant="primary"
+              size="sm"
+              type="submit"
+              onClick={(e) => {
+                e.preventDefault();
+                handleDiagnosisForm(e, item.patien_id, item.patient_name);
+              }}
+            >
+              Add Diagnosis
+            </Button>
+          </tr>
         </td>
+
+        <td>{item.d_items.map(renderdiagnosis)}</td>
         <td>
           {item.d_items[0].t_items.map(rendertreatement)}{" "}
           <Button
