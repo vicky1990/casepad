@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import Figure from "react-bootstrap/Figure";
 import { useLocation } from "react-router-dom";
+import useAuth from "./components/useAuth";
 
 import ModalCamera from "./components/ModalCamera";
 
@@ -15,6 +16,7 @@ import Asynautocomplete from "./components/Asynautocomplete";
 
 function AddDiagnosis() {
   const location = useLocation();
+  const { user } = useAuth();
 
   const [formData, setFormData] = useState({
     symptoms_list: [],
@@ -23,8 +25,8 @@ function AddDiagnosis() {
     images: "",
     treatement: "",
     comments: "",
-    patient_id: "",
-    doctor_id: ""
+    patient_id: -1,
+    doctor_id: user.id
   });
   //const [symptoms, setSymptomsData] = useState([]);
   //const [images, setImageData] = useState({});
@@ -98,9 +100,6 @@ function AddDiagnosis() {
               <Form.Control
                 readOnly
                 placeholder={location.state.patient_name}
-                onChange={(e) => {
-                  setFormData({ ...formData, patient_id: e.target.value });
-                }}
               />
             </Form.Group>
 

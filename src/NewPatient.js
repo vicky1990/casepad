@@ -12,11 +12,12 @@ import { useNavigate } from "react-router-dom";
 
 function NewPatient() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({});
-  const [locData, setLocData] = useState({});
+  const [formData, setFormData] = useState({
+    state: "Tamil Nadu",
+    country: "India"
+  });
 
   function handleSubmitForm(event) {
-    setFormData({ ...formData, location: locData });
     console.log(JSON.stringify(formData));
 
     axios
@@ -30,7 +31,7 @@ function NewPatient() {
       .then((res) => {
         console.log(res);
         console.log(res.data["result"]);
-        navigate("/addvisit", {
+        navigate("/diagnosis", {
           state: {
             patient_name: res.data["name"],
             patient_id: res.data["id"],
@@ -40,7 +41,9 @@ function NewPatient() {
       })
       .catch((err) => {
         console.log(err);
-        navigate("/addvisit", { state: { patient_name: "sabaoon", id: "0" } });
+        navigate("/diagnosis", {
+          state: { patient_name: "sabaoon", id: "0", diagnosis: "new" }
+        });
       });
   }
 
@@ -88,7 +91,7 @@ function NewPatient() {
               <Form.Control
                 placeholder=""
                 onChange={(e) => {
-                  setLocData({ ...locData, address_line_1: e.target.value });
+                  setFormData({ ...formData, address_line_1: e.target.value });
                 }}
               />
             </Form.Group>
@@ -97,7 +100,7 @@ function NewPatient() {
               <Form.Control
                 placeholder="Apartment, studio, or floor"
                 onChange={(e) => {
-                  setLocData({ ...locData, address_line_2: e.target.value });
+                  setFormData({ ...formData, address_line_2: e.target.value });
                 }}
               />
             </Form.Group>
@@ -106,7 +109,7 @@ function NewPatient() {
                 <Form.Label>City</Form.Label>
                 <Form.Control
                   onChange={(e) => {
-                    setLocData({ ...locData, city: e.target.value });
+                    setFormData({ ...formData, city: e.target.value });
                   }}
                 />
               </Form.Group>
@@ -116,7 +119,7 @@ function NewPatient() {
                 <Form.Select
                   defaultValue="Tamil Nadu"
                   onChange={(e) => {
-                    setLocData({ ...locData, state: e.target.value });
+                    setFormData({ ...formData, state: e.target.value });
                   }}
                 >
                   <option>Tamil Nadu</option>
@@ -128,7 +131,7 @@ function NewPatient() {
                 <Form.Label>Zip</Form.Label>
                 <Form.Control
                   onChange={(e) => {
-                    setLocData({ ...locData, zipcode: e.target.value });
+                    setFormData({ ...formData, zipcode: e.target.value });
                   }}
                 />
               </Form.Group>
