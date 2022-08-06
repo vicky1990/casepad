@@ -75,7 +75,7 @@ function Home() {
               type="submit"
               onClick={(e) => {
                 e.preventDefault();
-                handleDiagnosisForm(e, item.patien_id, item.patient_name);
+                handleDiagnosisForm(e, item.patient_id, item.patient_name);
               }}
             >
               Add Diagnosis
