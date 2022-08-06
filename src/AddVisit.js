@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import Figure from "react-bootstrap/Figure";
 import { useLocation } from "react-router-dom";
+import useAuth from "./components/useAuth";
 
 import ModalCamera from "./components/ModalCamera";
 
@@ -13,13 +14,15 @@ import axios from "axios";
 
 function AddVisit() {
   const location = useLocation();
+  const { user } = useAuth();
 
   const [formData, setFormData] = useState({
-    diagnosis: "",
+    diagnosis: location.state.diagnosis,
     images: "",
     treatement: "",
     comments: "",
-    patient_id: ""
+    patient_id: location.state.id,
+    doctor_id: user.id
   });
 
   function handleSubmitForm(event) {

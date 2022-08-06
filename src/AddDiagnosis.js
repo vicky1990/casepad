@@ -20,12 +20,12 @@ function AddDiagnosis() {
 
   const [formData, setFormData] = useState({
     symptoms_list: [],
-    diagnosis: "",
+    diagnosis: location.state.diagnosis,
     diagnosis_list: [],
     images: "",
     treatement: "",
     comments: "",
-    patient_id: -1,
+    patient_id: location.state.id,
     doctor_id: user.id
   });
   //const [symptoms, setSymptomsData] = useState([]);
