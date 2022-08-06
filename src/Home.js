@@ -13,6 +13,7 @@ function Home() {
   const navigate = useNavigate();
 
   // https://mocki.io/v1/50bbcc4e-bd7f-4309-888b-d71056adc58e
+  //https://mocki.io/v1/309e425a-3722-4309-b01c-472145c093f2
   const fetchRecords = () => {
     fetch("/get_patients")
       .then((res) => res.json())
@@ -84,7 +85,9 @@ function Home() {
 
         <td>{item.d_items.map(renderdiagnosis)}</td>
         <td>
-          {item.d_items[0].t_items.map(rendertreatement)}{" "}
+          {item.d_items.length > 0
+            ? item.d_items[0].t_items.map(rendertreatement)
+            : null}{" "}
           <Button
             variant="primary"
             size="sm"
