@@ -18,7 +18,7 @@ function AddVisit() {
 
   const [formData, setFormData] = useState({
     diagnosis: location.state.diagnosis,
-    images: "",
+    images: [],
     treatement: "",
     comments: "",
     patient_id: location.state.id,
@@ -49,7 +49,7 @@ function AddVisit() {
 
   const addImage = (data) => {
     //setImageData(data);
-    setFormData({ ...formData, images: data });
+    setFormData({ ...formData, images: [...formData.images, data] });
   };
 
   return (

@@ -94,7 +94,12 @@ function Home() {
             type="submit"
             onClick={(e) => {
               e.preventDefault();
-              handleVisitForm(e, item.patien_id, item.patient_name, 0);
+              handleVisitForm(
+                e,
+                item.patien_id,
+                item.patient_name,
+                item.diagnosis_id
+              );
             }}
           >
             +

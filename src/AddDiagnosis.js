@@ -22,7 +22,7 @@ function AddDiagnosis() {
     symptoms_list: [],
     diagnosis: location.state.diagnosis,
     diagnosis_list: [],
-    images: "",
+    images: [],
     treatement: "",
     comments: "",
     patient_id: location.state.id,
@@ -85,7 +85,7 @@ function AddDiagnosis() {
   };
   const addImage = (data) => {
     //setImageData(data);
-    setFormData({ ...formData, images: data });
+    setFormData({ ...formData, images: [...formData.images, data] });
   };
 
   return (

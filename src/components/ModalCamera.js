@@ -14,7 +14,7 @@ const ModalCamera = (props) => {
   const [show, setShow] = React.useState(false);
   const [userMedia, setUserMedia] = React.useState(false);
 
-  const [url, setUrl] = React.useState(null);
+  const [url, setUrl] = React.useState([]);
 
   const handleClose = React.useCallback(() => {
     setShow(false);
@@ -23,8 +23,8 @@ const ModalCamera = (props) => {
 
   const capturePhoto = React.useCallback(async () => {
     const imageSrc = webcamRef.current.getScreenshot();
-    setUrl(imageSrc);
-    //console.log(imageSrc);
+    setUrl((prevState) => [...prevState, imageSrc]);
+    console.log(imageSrc);
 
     if (props.onChange) {
       props.onChange(imageSrc);
@@ -39,9 +39,14 @@ const ModalCamera = (props) => {
     setUserMedia
   ]);
 
+  function renderImages(item, index) {
+    return <Image src={item} alt="thumbnail" />;
+  }
+
   return (
     <div>
-      {url && <Image src={url} alt="thumbnail" />}
+      {url.map(renderImages)}
+
       <Button variant="primary" onClick={handleShow}>
         <img src="../Images/Plane.png" />
       </Button>
