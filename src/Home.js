@@ -16,6 +16,7 @@ function Home() {
   //https://mocki.io/v1/309e425a-3722-4309-b01c-472145c093f2
   const fetchRecords = () => {
     fetch("/get_patients")
+      //fetch("https://mocki.io/v1/4f49e03d-a24d-491e-85a9-e3f83a813e9e")
       .then((res) => res.json())
       .then((json) => setData(json.p_items));
   };
@@ -96,9 +97,9 @@ function Home() {
               e.preventDefault();
               handleVisitForm(
                 e,
-                item.patien_id,
+                item.patient_id,
                 item.patient_name,
-                item.diagnosis_id
+                item.d_items[0].id
               );
             }}
           >

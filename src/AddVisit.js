@@ -26,8 +26,8 @@ function AddVisit() {
   });
 
   function handleSubmitForm(event) {
-    setFormData({ ...formData, patient_id: location.state.id });
-    setFormData({ ...formData, diagnosis: location.state.diagnosis });
+    //setFormData({ ...formData, patient_id: location.state.id });
+    //setFormData({ ...formData, diagnosis: location.state.diagnosis });
 
     console.log(formData);
     axios
