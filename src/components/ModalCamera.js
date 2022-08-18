@@ -24,7 +24,7 @@ const ModalCamera = (props) => {
   const capturePhoto = React.useCallback(async () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setUrl((prevState) => [...prevState, imageSrc]);
-    console.log(imageSrc);
+    //console.log(imageSrc);
 
     if (props.onChange) {
       props.onChange(imageSrc);

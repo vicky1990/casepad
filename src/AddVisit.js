@@ -49,6 +49,7 @@ function AddVisit() {
 
   const addImage = (data) => {
     //setImageData(data);
+    data = data.replace(/^data:image\/[a-z]+;base64,/, "");
     setFormData({ ...formData, images: [...formData.images, data] });
   };
 
