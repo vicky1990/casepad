@@ -34,7 +34,7 @@ function NewPatient() {
         navigate("/diagnosis", {
           state: {
             patient_name: res.data["name"],
-            patient_id: res.data["id"],
+            id: res.data["id"],
             diagnosis: "new"
           }
         });
