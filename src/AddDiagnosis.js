@@ -35,8 +35,8 @@ function AddDiagnosis() {
     //setFormData({ ...formData, symtom: symptoms });
     //setFormData({ ...formData, images: images });
 
-    setFormData({ ...formData, patient_id: location.state.id });
-    setFormData({ ...formData, diagnosis: location.state.diagnosis });
+    //setFormData({ ...formData, patient_id: location.state.id });
+    //setFormData({ ...formData, diagnosis: location.state.diagnosis });
 
     console.log(formData);
     axios
@@ -85,6 +85,7 @@ function AddDiagnosis() {
   };
   const addImage = (data) => {
     //setImageData(data);
+    data = data.replace(/^data:image\/[a-z]+;base64,/, "");
     setFormData({ ...formData, images: [...formData.images, data] });
   };
 

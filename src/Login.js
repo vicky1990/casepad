@@ -20,6 +20,8 @@ function Login() {
   const { login, authed } = useAuth();
   const [formData, setFormData] = useState({});
 
+  const [error, setError] = useState(false);
+
   function handleLoginForm(event) {
     const { email, password } = formData;
 
@@ -39,10 +41,12 @@ function Login() {
         console.log(res);
         if (res.data.result === "success") {
           navigate("/home");
+          setError(false);
         }
       })
       .catch((err) => {
         console.log("Bad login");
+        setError(true);
         navigate("/home");
       });
   }
@@ -89,6 +93,17 @@ function Login() {
             >
               Login
             </Button>
+            {error && (
+              <Form.Text
+                id="signup_result"
+                style={{
+                  color: "#ff0000"
+                }}
+              >
+                {" "}
+                Login Error!
+              </Form.Text>
+            )}
           </Form>
         </Container>
       </Container>

@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { useNavigate } from "react-router-dom";
 
 import bcrypt from "bcryptjs";
 import axios from "axios";
@@ -11,6 +12,10 @@ import axios from "axios";
 import LoginHeader from "./LoginHeader";
 
 function Signup() {
+  const navigate = useNavigate();
+
+  const [error, setError] = useState(false);
+
   const [formData, setFormData] = useState({
     state: "Tamil Nadu",
     country: "India"
@@ -33,9 +38,12 @@ function Signup() {
       .then((res) => {
         console.log(res);
         console.log(res.data["result"]);
+        setError(false);
+        navigate("/login");
       })
       .catch((err) => {
         console.log(err);
+        setError(true);
       });
   }
   return (
@@ -206,6 +214,18 @@ function Signup() {
             >
               Sign up
             </Button>
+
+            {error && (
+              <Form.Text
+                id="signup_result"
+                style={{
+                  color: "#ff0000"
+                }}
+              >
+                {" "}
+                Signup Error!
+              </Form.Text>
+            )}
           </Form>
         </Container>
       </Container>
