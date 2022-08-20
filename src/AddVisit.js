@@ -11,9 +11,11 @@ import ModalCamera from "./components/ModalCamera";
 
 import Header from "./Header";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function AddVisit() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { user } = useAuth();
 
   const [formData, setFormData] = useState({
@@ -41,6 +43,7 @@ function AddVisit() {
       .then((res) => {
         console.log(res);
         console.log(res.data["result"]);
+        navigate("/home");
       })
       .catch((err) => {
         console.log(err);

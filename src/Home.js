@@ -3,20 +3,24 @@ import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 
+import ModalDisplay from "./components/ModalDisplay";
+
 import Header from "./Header";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 // try home() with hooks instead of class and compare with others.
 function Home() {
   // data state variable defaulted to an empty array
+  const [modalview, setModalview] = useState(false);
+  const [vid, setVid] = useState(0);
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
   // https://mocki.io/v1/50bbcc4e-bd7f-4309-888b-d71056adc58e
-  //https://mocki.io/v1/309e425a-3722-4309-b01c-472145c093f2
+  //https://mocki.io/v1/be2d3302-db21-45e6-a930-7cd4a189959d
   const fetchRecords = () => {
     fetch("/get_patients")
-      //fetch("https://mocki.io/v1/4f49e03d-a24d-491e-85a9-e3f83a813e9e")
+      //fetch("https://mocki.io/v1/be2d3302-db21-45e6-a930-7cd4a189959d")
       .then((res) => res.json())
       .then((json) => setData(json.p_items));
   };
@@ -43,13 +47,12 @@ function Home() {
 
   function renderdiagnosis(item, index) {
     let treat_count = item.treatement_count;
-    console.log(treat_count);
+    //console.log(treat_count);
     let tag = "";
     for (let i = 0; i < treat_count; i++) {
       tag += "<td></td>";
-      console.log(i);
     }
-    console.log(tag);
+    //console.log(tag);
     return (
       <tr>
         <td>{item.diagnosis}</td>
@@ -59,7 +62,18 @@ function Home() {
   function rendertreatement(item, index) {
     return (
       <tr>
-        <td>{item.date}</td>
+        <td>
+          <Button
+            variant="link"
+            onClick={(e) => {
+              e.preventDefault();
+              setVid(item.visit_id);
+              setModalview(true);
+            }}
+          >
+            {item.date.split(" ")[0]}
+          </Button>
+        </td>
       </tr>
     );
   }
@@ -115,6 +129,13 @@ function Home() {
       <Header />
       <Container className="p-3">
         <Container className="p-5 mb-4 bg-light rounded-3">
+          <div>
+            <ModalDisplay
+              show={modalview}
+              setshow={setModalview}
+              visit_id={vid}
+            />
+          </div>
           <Table responsive condensed>
             <thead>
               <tr>

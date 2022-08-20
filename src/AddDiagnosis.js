@@ -6,6 +6,7 @@ import Image from "react-bootstrap/Image";
 import Figure from "react-bootstrap/Figure";
 import { useLocation } from "react-router-dom";
 import useAuth from "./components/useAuth";
+import { useNavigate } from "react-router-dom";
 
 import ModalCamera from "./components/ModalCamera";
 
@@ -15,6 +16,7 @@ import axios from "axios";
 import Asynautocomplete from "./components/Asynautocomplete";
 
 function AddDiagnosis() {
+  const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuth();
 
@@ -50,6 +52,7 @@ function AddDiagnosis() {
       .then((res) => {
         console.log(res);
         console.log(res.data["result"]);
+        navigate("/home");
       })
       .catch((err) => {
         console.log(err);
