@@ -5,6 +5,8 @@ import Modal from "react-bootstrap/Modal";
 import Image from "react-bootstrap/Image";
 import Form from "react-bootstrap/Form";
 
+import Resizer from "react-image-file-resizer";
+
 const videoConstraints = {
   width: 300,
   facingMode: "environment"
@@ -51,7 +53,7 @@ const ModalCamera = (props) => {
    * @param {File} file
    * @return {string}
    */
-  const toBase64 = (file) => {
+  /*const toBase64 = (file) => {
     if (!(file instanceof File) && !(file instanceof Blob)) return;
 
     console.dir(file);
@@ -74,9 +76,25 @@ const ModalCamera = (props) => {
       resolve = res;
       reject = rej;
     });
-  };
+  };*/
 
-  const _onChange = async (event) => {
+  const resizeFile = (file) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        400,
+        400,
+        "JPEG",
+        100,
+        0,
+        (uri) => {
+          resolve(uri);
+        },
+        "base64"
+      );
+    });
+
+  /*const _onChange = async (event) => {
     if (event.target.files && event.target.files.length) {
       const file = event.target.files[0];
       const imageSrc = await toBase64(file);
@@ -88,6 +106,23 @@ const ModalCamera = (props) => {
       }
 
       handleClose();
+    }
+  };*/
+
+  const onChange = async (event) => {
+    try {
+      const file = event.target.files[0];
+      const imageSrc = await resizeFile(file);
+      setUrl((prevState) => [...prevState, imageSrc]);
+      //console.log(imageSrc);
+
+      if (props.onChange) {
+        props.onChange(imageSrc);
+      }
+
+      handleClose();
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -121,9 +156,9 @@ const ModalCamera = (props) => {
             type="file"
             id="capture-environment"
             type="file"
-            accept="image/jpg,image/jpeg"
-            onChange={_onChange}
-            capture="environment"
+            accept="image/*"
+            onChange={onChange}
+            capture="filesystem"
           />
           <Button variant="primary" onClick={capturePhoto}>
             capture
