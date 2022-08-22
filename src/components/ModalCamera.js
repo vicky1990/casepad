@@ -155,10 +155,8 @@ const ModalCamera = (props) => {
           <Form.Control
             type="file"
             id="capture-environment"
-            type="file"
             accept="image/*"
             onChange={onChange}
-            capture="filesystem"
           />
           <Button variant="primary" onClick={capturePhoto}>
             capture
