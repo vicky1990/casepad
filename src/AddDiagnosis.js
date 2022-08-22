@@ -19,6 +19,7 @@ function AddDiagnosis() {
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuth();
+  const [error, setError] = useState(false);
 
   const [formData, setFormData] = useState({
     symptoms_list: [],
@@ -56,6 +57,7 @@ function AddDiagnosis() {
       })
       .catch((err) => {
         console.log(err);
+        setError(true);
       });
   }
 
@@ -152,6 +154,18 @@ function AddDiagnosis() {
             >
               Submit
             </Button>
+
+            {error && (
+              <Form.Text
+                id="signup_result"
+                style={{
+                  color: "#ff0000"
+                }}
+              >
+                {" "}
+                Invalid input!
+              </Form.Text>
+            )}
           </Form>
         </Container>
       </Container>

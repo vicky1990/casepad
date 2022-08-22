@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Image from "react-bootstrap/Image";
+import Form from "react-bootstrap/Form";
 
 const videoConstraints = {
   width: 300,
@@ -13,6 +14,8 @@ const ModalCamera = (props) => {
   const webcamRef = useRef(null);
   const [show, setShow] = React.useState(false);
   const [userMedia, setUserMedia] = React.useState(false);
+
+  const [currTab, setCurrTab] = React.useState(0);
 
   const [url, setUrl] = React.useState([]);
 
@@ -40,8 +43,53 @@ const ModalCamera = (props) => {
   ]);
 
   function renderImages(item, index) {
-    return <Image src={item} alt="thumbnail" />;
+    return <Image src={item} alt="thumbnail" width="100" />;
   }
+
+  /**
+   * Convert a File to a base64 string
+   * @param {File} file
+   * @return {string}
+   */
+  const toBase64 = (file) => {
+    if (!(file instanceof File) && !(file instanceof Blob)) return;
+
+    console.dir(file);
+    //console.log(JSON.stringify(file));
+
+    const reader = new FileReader();
+    let resolve = null;
+    let reject = null;
+
+    reader.readAsDataURL(file, 1);
+    reader.onload = function onReaderLoad() {
+      resolve(reader.result);
+    };
+
+    reader.onerror = function onReaderError(error) {
+      reject(error);
+    };
+
+    return new Promise((res, rej) => {
+      resolve = res;
+      reject = rej;
+    });
+  };
+
+  const _onChange = async (event) => {
+    if (event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+      const imageSrc = await toBase64(file);
+      setUrl((prevState) => [...prevState, imageSrc]);
+      //console.log(imageSrc);
+
+      if (props.onChange) {
+        props.onChange(imageSrc);
+      }
+
+      handleClose();
+    }
+  };
 
   return (
     <div>
@@ -69,6 +117,14 @@ const ModalCamera = (props) => {
           />
         </Modal.Body>
         <Modal.Footer>
+          <Form.Control
+            type="file"
+            id="capture-environment"
+            type="file"
+            accept="image/jpg,image/jpeg"
+            onChange={_onChange}
+            capture="environment"
+          />
           <Button variant="primary" onClick={capturePhoto}>
             capture
           </Button>
