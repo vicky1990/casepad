@@ -6,6 +6,8 @@ import Image from "react-bootstrap/Image";
 import Figure from "react-bootstrap/Figure";
 import { useLocation } from "react-router-dom";
 import useAuth from "./components/useAuth";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 import ModalCamera from "./components/ModalCamera";
 
@@ -24,7 +26,8 @@ function AddVisit() {
     treatement: "",
     comments: "",
     patient_id: location.state.id,
-    doctor_id: user.id
+    doctor_id: user.id,
+    dov: new Date().toISOString().substring(0, 10)
   });
 
   function handleSubmitForm(event) {
@@ -63,16 +66,34 @@ function AddVisit() {
         <Container className="p-5 mb-4 bg-light rounded-3">
           <h1 className="header">Add a Visit</h1>
           <Form>
-            <Form.Group className="mb-3" controlId="formGridPatientId">
-              <Form.Label>Patient Name</Form.Label>
-              <Form.Control
-                readOnly
-                placeholder={location.state.patient_name}
-                onChange={(e) => {
-                  setFormData({ ...formData, patient_id: e.target.value });
-                }}
-              />
-            </Form.Group>
+            <Row className="mb-3">
+              <Form.Group
+                as={Col}
+                className="mb-3"
+                controlId="formGridPatientId"
+              >
+                <Form.Label>Patient Name</Form.Label>
+                <Form.Control
+                  readOnly
+                  placeholder={location.state.patient_name}
+                  onChange={(e) => {
+                    setFormData({ ...formData, patient_id: e.target.value });
+                  }}
+                />
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="formGridAge">
+                <Form.Label>Date of visit</Form.Label>
+                <Form.Control
+                  type="date"
+                  placeholder=""
+                  defaultValue={new Date().toISOString().substring(0, 10)}
+                  onChange={(e) => {
+                    setFormData({ ...formData, dov: e.target.value });
+                  }}
+                />
+              </Form.Group>
+            </Row>
 
             <Form.Group className="mb-3" controlId="formGridTreatment">
               <Form.Label>Treatement</Form.Label>

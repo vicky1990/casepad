@@ -7,6 +7,8 @@ import Figure from "react-bootstrap/Figure";
 import { useLocation } from "react-router-dom";
 import useAuth from "./components/useAuth";
 import { useNavigate } from "react-router-dom";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 import ModalCamera from "./components/ModalCamera";
 
@@ -29,7 +31,8 @@ function AddDiagnosis() {
     treatement: "",
     comments: "",
     patient_id: location.state.id,
-    doctor_id: user.id
+    doctor_id: user.id,
+    dov: new Date().toISOString().substring(0, 10)
   });
   //const [symptoms, setSymptomsData] = useState([]);
   //const [images, setImageData] = useState({});
@@ -101,13 +104,30 @@ function AddDiagnosis() {
         <Container className="p-5 mb-4 bg-light rounded-3">
           <h1 className="header">Add a Diagnosis</h1>
           <Form>
-            <Form.Group className="mb-3" controlId="formGridPatientId">
-              <Form.Label>Patient Name</Form.Label>
-              <Form.Control
-                readOnly
-                placeholder={location.state.patient_name}
-              />
-            </Form.Group>
+            <Row className="mb-3">
+              <Form.Group
+                as={Col}
+                className="mb-3"
+                controlId="formGridPatientId"
+              >
+                <Form.Label>Patient Name</Form.Label>
+                <Form.Control
+                  readOnly
+                  placeholder={location.state.patient_name}
+                />
+              </Form.Group>
+              <Form.Group as={Col} controlId="formGridAge">
+                <Form.Label>Date of visit</Form.Label>
+                <Form.Control
+                  type="date"
+                  placeholder=""
+                  defaultValue={new Date().toISOString()}
+                  onChange={(e) => {
+                    setFormData({ ...formData, dov: e.target.value });
+                  }}
+                />
+              </Form.Group>
+            </Row>
 
             <Form.Group className="mb-3" controlId="formGridsymptom">
               <Form.Label>Symptoms</Form.Label>
