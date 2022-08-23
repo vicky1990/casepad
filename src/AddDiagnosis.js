@@ -56,6 +56,7 @@ function AddDiagnosis() {
       .then((res) => {
         console.log(res);
         console.log(res.data["result"]);
+        setError(false);
         navigate("/home");
       })
       .catch((err) => {
@@ -121,7 +122,7 @@ function AddDiagnosis() {
                 <Form.Control
                   type="date"
                   placeholder=""
-                  defaultValue={new Date().toISOString()}
+                  defaultValue={new Date().toISOString().substring(0, 10)}
                   onChange={(e) => {
                     setFormData({ ...formData, dov: e.target.value });
                   }}

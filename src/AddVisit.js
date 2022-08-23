@@ -19,6 +19,7 @@ function AddVisit() {
   const location = useLocation();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const [error, setError] = useState(false);
 
   const [formData, setFormData] = useState({
     diagnosis: location.state.diagnosis,
@@ -46,10 +47,12 @@ function AddVisit() {
       .then((res) => {
         console.log(res);
         console.log(res.data["result"]);
+        setError(false);
         navigate("/home");
       })
       .catch((err) => {
         console.log(err);
+        setError(true);
       });
   }
 
@@ -130,6 +133,17 @@ function AddVisit() {
             >
               Submit
             </Button>
+            {error && (
+              <Form.Text
+                id="signup_result"
+                style={{
+                  color: "#ff0000"
+                }}
+              >
+                {" "}
+                Invalid input!
+              </Form.Text>
+            )}
           </Form>
         </Container>
       </Container>
