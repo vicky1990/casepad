@@ -7,6 +7,8 @@ import Form from "react-bootstrap/Form";
 
 import Resizer from "react-image-file-resizer";
 
+import camera_image from "../assets/camera.png";
+
 const videoConstraints = {
   width: 300,
   facingMode: "environment"
@@ -131,7 +133,7 @@ const ModalCamera = (props) => {
       {url.map(renderImages)}
 
       <Button variant="primary" onClick={handleShow}>
-        <img src="../Images/Plane.png" />
+        <img src={camera_image} />
       </Button>
       <Modal
         show={show}

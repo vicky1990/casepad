@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
 
 import ModalDisplay from "./components/ModalDisplay";
 
